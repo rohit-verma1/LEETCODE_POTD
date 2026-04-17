@@ -1,0 +1,367 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>  Two Sum - LeetCode POTD</title>
+<meta name="description" content="Use a hash map to find the complement in O(N) time.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="LeetCode POTD">
+<meta property="og:title" content="  Two Sum">
+<meta property="og:url" content="http://0.0.0.0:4000/Leetcode_POTD/potd/2026-04-15-two-sum/">
+
+
+  <meta property="og:description" content="Use a hash map to find the complement in O(N) time.">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-04-15T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://0.0.0.0:4000/Leetcode_POTD/potd/2026-04-15-two-sum/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/Leetcode_POTD/feed.xml" type="application/atom+xml" rel="alternate" title="LeetCode POTD Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/Leetcode_POTD/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- insert custom head html -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+  </head>
+
+  <body class="layout--single" dir="ltr">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/Leetcode_POTD/">
+          LeetCode POTD
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="  Two Sum">
+    <meta itemprop="description" content="Use a hash map to find the complement in O(N) time.">
+    <meta itemprop="datePublished" content="2026-04-15T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://0.0.0.0:4000/Leetcode_POTD/potd/2026-04-15-two-sum/" itemprop="url"><ol>
+  <li>Two Sum</li>
+</ol>
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <h2 id="problem-statement">Problem Statement</h2>
+
+<p>Given an array of integers <code class="language-plaintext highlighter-rouge">nums</code> and an integer <code class="language-plaintext highlighter-rouge">target</code>, return indices of the two numbers such that they add up to <code class="language-plaintext highlighter-rouge">target</code>.</p>
+
+<p>You may assume that each input would have <strong>exactly one solution</strong>, and you may not use the same element twice.</p>
+
+<p>You can return the answer in any order.</p>
+
+<p><strong>Example 1:</strong></p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+</code></pre></div></div>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">2 &lt;= nums.length &lt;= 10^4</code></li>
+  <li><code class="language-plaintext highlighter-rouge">-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
+  <li><code class="language-plaintext highlighter-rouge">-10^9 &lt;= target &lt;= 10^9</code></li>
+  <li><strong>Only one valid answer exists.</strong></li>
+</ul>
+
+<hr />
+
+<h2 id="logic--intuition">Logic &amp; Intuition</h2>
+
+<p>A brute force solution would check every pair of elements, which takes $O(N^2)$ time. To do this in $O(N)$ time, we can use a Hash Map.</p>
+
+<p>As we iterate through the array, for each element we calculate its <code class="language-plaintext highlighter-rouge">complement</code> (i.e. <code class="language-plaintext highlighter-rouge">target - current_element</code>). We then check if this complement already exists in our hash map.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">numMap</span><span class="p">;</span> <span class="c1">// value -&gt; index</span>
+        
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">complement</span> <span class="o">=</span> <span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="n">numMap</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">complement</span><span class="p">)){</span>
+                <span class="k">return</span> <span class="p">{</span><span class="n">numMap</span><span class="p">[</span><span class="n">complement</span><span class="p">],</span> <span class="n">i</span><span class="p">};</span>
+            <span class="p">}</span>
+            <span class="n">numMap</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="p">{};</span> <span class="c1">// Should not reach here per constraints</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2026-04-15T00:00:00+00:00">April 15, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+      
+        <p>
+          Comments are configured with provider: <strong>giscus</strong>,
+          but are disabled in non-production environments.
+        </p>
+      
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">You May Also Enjoy</h2>
+  <div class="grid__wrapper">
+    
+      
+  </div>
+</div>
+
+  
+</div>
+
+      
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <footer class="page__footer">
+  <div class="page__footer-follow">
+    <ul class="social-icons"></ul>
+  </div>
+  <div class="page__footer-copyright">
+    <!-- intentionally blank — no copyright or "Powered by" text -->
+  </div>
+</footer>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/Leetcode_POTD/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function () {
+    var commentContainer = document.querySelector('#giscus-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+
+    script.setAttribute('src', 'https://giscus.app/client.js');
+    script.setAttribute('data-repo', '');
+    script.setAttribute('data-repo-id', 'PLACEHOLDER');
+    script.setAttribute('data-category', '');
+    script.setAttribute('data-category-id', 'PLACEHOLDER');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', 'light');
+    script.setAttribute('data-lang',  'en');
+    
+    script.setAttribute('crossorigin', 'anonymous');
+
+    script.setAttribute('async', '');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+  </body>
+</html>

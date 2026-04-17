@@ -1,0 +1,77 @@
+---
+layout: landing
+title: "Discovery Hub"
+---
+
+<section class="hero">
+  <p class="hero-tag">// leetcode.potd</p>
+  <h1>Daily <span class="hl">Algorithms</span></h1>
+  <p class="hero-desc">C++ solutions with clear intuitions and complete implementations for LeetCode's daily problem — published every day.</p>
+</section>
+
+<hr class="section-divider">
+
+<section class="archive" id="archive">
+  <p class="archive-hd">// archive</p>
+
+  <div class="archive-layout">
+    <aside class="sidebar">
+      <p class="sidebar-lbl">Navigate</p>
+      {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+      {% for yg in posts_by_year %}
+        <div class="year-nav">
+          <button class="year-btn" data-target="ym-{{ yg.name }}">
+            <span class="y-arrow">▸</span>
+            <span class="y-lbl">{{ yg.name }}</span>
+            <span class="y-count">{{ yg.items | size }}</span>
+          </button>
+          <div class="year-months" id="ym-{{ yg.name }}">
+            {% assign posts_by_month = yg.items | group_by_exp: "post", "post.date | date: '%B'" %}
+            {% for mg in posts_by_month %}
+              <a href="#sec-{{ yg.name }}-{{ mg.name }}" class="month-link">
+                <span>{{ mg.name }}</span>
+                <span class="m-count">{{ mg.items | size }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </aside>
+
+    <main>
+      {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+      {% for yg in posts_by_year %}
+        <div class="year-group">
+          <h2 class="year-heading" id="year-{{ yg.name }}">{{ yg.name }}</h2>
+          {% assign posts_by_month = yg.items | group_by_exp: "post", "post.date | date: '%B'" %}
+          {% for mg in posts_by_month %}
+            <div class="month-group" id="sec-{{ yg.name }}-{{ mg.name }}">
+              <p class="month-heading">{{ mg.name }}</p>
+              <div class="cards-grid">
+                {% for post in mg.items %}
+                  <a href="{{ post.url | relative_url }}" class="card">
+                    <div class="card-left-bar"></div>
+                    <div class="card-body">
+                      <div class="card-meta">
+                        <span class="card-date">{{ post.date | date: "%b %d" }}</span>
+                        {% assign diff = post.difficulty | downcase %}
+                        <span class="badge badge-{{ diff }}">{{ post.difficulty }}</span>
+                      </div>
+                      <div class="card-name">{{ post.title }}</div>
+                      <p class="card-desc">{{ post.excerpt | strip_html | truncatewords: 18 }}</p>
+                      <div class="card-footer">
+                        <span class="card-cta">
+                          Read →
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </main>
+  </div>
+</section>

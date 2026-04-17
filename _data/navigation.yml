@@ -1,0 +1,3 @@
+# Override the default Minimal Mistakes navigation.
+# We only want the site title in the masthead, no nav links.
+main: []

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }} — Daily C++ Solutions</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #1e1e1e;
+      --bg-sidebar: #252526;
+      --bg-card: #2d2d2d;
+      --bg-card-hv: #333333;
+      --border: #3c3c3c;
+      --border-hv: #569cd6;
+      --text-1: #d4d4d4;
+      --text-2: #858585;
+      --text-3: #5a5a5a;
+      --blue: #569cd6;
+      --blue-dim: rgba(86, 156, 214, 0.12);
+      --easy: #4ec9b0;
+      --easy-bg: rgba(78, 201, 176, 0.1);
+      --medium: #dcdcaa;
+      --medium-bg: rgba(220, 220, 170, 0.1);
+      --hard: #f44747;
+      --hard-bg: rgba(244, 71, 71, 0.1);
+      --radius: 6px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #3c3c3c #1e1e1e;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3c3c3c;
+      border-radius: 3px;
+    }
+
+    ::selection {
+      background: rgba(86, 156, 214, 0.3);
+      color: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-1);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-brand span {
+      color: var(--blue);
+      margin-right: 0.4rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-2);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-1);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 7rem 2rem 3.5rem;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-1);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .hero h1 .hl {
+      color: var(--blue);
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--text-2);
+      max-width: 520px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* DIVIDER */
+    .section-divider {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ARCHIVE */
+    .archive {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+    }
+
+    .archive-hd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 2rem;
+    }
+
+    .archive-layout {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: sticky;
+      top: 64px;
+      border-right: 1px solid var(--border);
+      padding-right: 1.5rem;
+    }
+
+    .sidebar-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-3);
+      margin-bottom: 0.6rem;
+    }
+
+    .year-nav {
+      margin-bottom: 0.1rem;
+    }
+
+    .year-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.4rem 0.45rem;
+      background: none;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      color: var(--text-1);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.15s;
+      text-align: left;
+    }
+
+    .year-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .y-arrow {
+      font-size: 0.55rem;
+      color: var(--text-3);
+      width: 12px;
+    }
+
+    .y-lbl {
+      flex: 1;
+    }
+
+    .y-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-3);
+    }
+
+    .year-months {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.25s ease, opacity 0.25s ease;
+      padding-left: 1.25rem;
+    }
+
+    .year-months.open {
+      max-height: 800px;
+      opacity: 1;
+    }
+
+    .month-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.28rem 0.45rem;
+      border-radius: var(--radius);
+      font-size: 0.77rem;
+      color: var(--text-2);
+      transition: all 0.15s;
+    }
+
+    .month-link:hover {
+      color: var(--blue);
+      background: var(--blue-dim);
+    }
+
+    .m-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-3);
+    }
+
+    /* YEAR/MONTH HEADINGS */
+    .year-group {
+      margin-bottom: 2.5rem;
+    }
+
+    .year-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .year-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .month-group {
+      margin-bottom: 1.75rem;
+    }
+
+    .month-heading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      margin-bottom: 0.75rem;
+    }
+
+    /* CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: block;
+      transition: border-color 0.15s, background 0.15s;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out, border-color 0.15s, background 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--border-hv);
+      background: var(--bg-card-hv);
+    }
+
+    .card-left-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--blue);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .card:hover .card-left-bar {
+      opacity: 1;
+    }
+
+    .card-body {
+      padding: 1.1rem 1.2rem 1.1rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-3);
+    }
+
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      padding: 0.12rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    .badge-easy {
+      background: var(--easy-bg);
+      color: var(--easy);
+    }
+
+    .badge-medium {
+      background: var(--medium-bg);
+      color: var(--medium);
+    }
+
+    .badge-hard {
+      background: var(--hard-bg);
+      color: var(--hard);
+    }
+
+    .card-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-1);
+      margin-bottom: 0.35rem;
+      line-height: 1.4;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      flex: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-footer {
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-cta {
+      font-size: 0.72rem;
+      color: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      opacity: 0.7;
+      transition: opacity 0.15s, gap 0.15s;
+    }
+
+    .card:hover .card-cta {
+      opacity: 1;
+      gap: 0.45rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .archive-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .sidebar {
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-right: 0;
+        padding-bottom: 1.25rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        padding-top: 5rem;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .archive {
+        padding: 2rem 1.25rem 4rem;
+      }
+
+      .nav {
+        padding: 0 1.25rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav">
+    <a href="{{ '/' | relative_url }}" class="nav-brand">
+      <span>//</span>{{ site.title }}
+    </a>
+    <ul class="nav-links">
+      <li><a href="#archive">Archive</a></li>
+      <li><a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
+  </nav>
+
+  {{ content }}
+
+  <script>
+    document.querySelectorAll('.year-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = document.getElementById(this.dataset.target);
+        var arrow = this.querySelector('.y-arrow');
+        var open = target.classList.toggle('open');
+        arrow.textContent = open ? '▾' : '▸';
+      });
+    });
+
+    var first = document.querySelector('.year-btn');
+    if (first) first.click();
+
+    document.querySelectorAll('.month-link').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var el = document.querySelector(this.getAttribute('href'));
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e, i) {
+        if (e.isIntersecting) {
+          setTimeout(function () { e.target.classList.add('visible'); }, i * 45);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.card').forEach(function (c) { io.observe(c); });
+  </script>
+</body>
+
+</html>

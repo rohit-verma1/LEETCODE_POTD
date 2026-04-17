@@ -1,0 +1,65 @@
+# Site Settings
+title: "LeetCode POTD"
+name: "Your Name"
+description: "Daily C++ solutions, explanations, and dry-runs for LeetCode."
+url: ""
+baseurl: "/Leetcode_POTD" 
+github_username: "your_github_username"
+
+# Theme Config
+theme: "minimal-mistakes-jekyll"
+minimal_mistakes_skin: "air" # A light, airy, minimalist theme by default
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+
+# Permalinks format
+permalink: /potd/:year-:month-:day-:title/
+
+# Comments
+comments:
+  provider: "giscus"
+  giscus:
+    repo: "YOUR_GITHUB_USERNAME/Leetcode_POTD"
+    repo_id: "PLACEHOLDER"
+    category: "Announcements"
+    category_id: "PLACEHOLDER"
+    mapping: "pathname"
+    strict: "0"
+    reactions_enabled: "1"
+    emit_metadata: "0"
+    input_position: "bottom"
+    theme: "light"
+    lang: "en"
+
+# Collections
+collections:
+  posts:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "single"
+      classes: wide
+      author_profile: false
+      read_time: false
+      comments: false
+      share: false
+      related: false
+
+# Footer
+footer:
+  links: []
+
+# Markdown and Syntax Highlighting
+markdown: kramdown
+highlighter: rouge
