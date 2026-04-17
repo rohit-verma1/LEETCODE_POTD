@@ -5,6 +5,7 @@ description: "Daily C++ solutions, explanations, and dry-runs for LeetCode."
 url: ""
 baseurl: "/Leetcode_POTD" 
 github_username: "your_github_username"
+future: true
 
 # Theme Config
 theme: "minimal-mistakes-jekyll"
