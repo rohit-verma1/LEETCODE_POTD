@@ -4,7 +4,7 @@ name: "Your Name"
 description: "Daily C++ solutions, explanations, and dry-runs for LeetCode."
 url: ""
 baseurl: "/Leetcode_POTD" 
-github_username: "your_github_username"
+github_username: "rohit_verma1"
 future: true
 
 # Theme Config
